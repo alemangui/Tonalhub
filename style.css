@@ -1,0 +1,170 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+button:focus {
+    outline:0;
+}
+
+input:focus {
+    outline: 0;
+}
+
+a {
+    color: #ABD7F9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+html {
+	background-color: #417CA9;
+	font-family: 'Lato', sans-serif;
+    color: #FFF;
+}
+
+#container {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+input {
+    border-radius: 5px;
+    border: solid 2px #467394;
+    background: #5695C5;
+    padding: 5px;
+}
+
+::-webkit-input-placeholder {
+   color: #98BAD4;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #98BAD4;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #98BAD4;  
+}
+
+:-ms-input-placeholder {  
+   color: #98BAD4;  
+}
+
+div#errors {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 0.8em;
+    background-color: #BF9A9A;
+    border-radius: 5px;
+    line-height: 22px;
+}
+
+button#playButton {
+    padding: 8px;
+    border-radius: 5px;
+    border: solid 2px #5B926F;
+    width: 58px;
+    background: #8ECE94;
+    height: 34px;
+}
+
+button#playButton:before {
+    content: "";
+    position: absolute;
+    border: 8px solid transparent;
+    border-width: 10px 24px;
+    border-left-color: #FFFFFF;
+    margin-top: -10px;
+    background: transparent;
+    margin-left: -10px;
+}
+
+button#playButton:hover {
+    background-color: rgb(137, 191, 119);
+}
+
+button#playButton:active {
+    background-color: #75B75F;
+}
+
+button#playButton.stop {
+    background-color: rgb(197, 107, 107);
+    border-color: #9E5D5D;
+}
+
+button#playButton.stop:before {
+    content: "";
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    margin-top: -10px;
+    background: white;
+    margin-left: -10px;
+    border-width: 10px 10px;
+}
+
+button#playButton.stop:hover {
+    background-color: #D47F7F;
+}
+
+button#playButton.stop:active {
+    background-color: #985A5A;
+}
+
+div#grid {
+    width: 780px;
+    height: 105px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.week {
+    width: 15px;
+    height: 105px;
+    float: left;
+}
+
+.day {
+    height: 15px;
+    background: #5695C5;
+    border-radius: 50%;
+    border: solid #417CA9;
+    border-width: 4px;
+}
+
+.day.active {
+    background-color: #CDDC39;
+}
+
+.week.playing > .day {
+    border-width: 1px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    padding: 10px;
+    font-size: 0.8em;
+}
+
+footer>p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
