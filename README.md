@@ -1,4 +1,4 @@
-<img align="center" src="https://alemangui.github.io/Tonalhub/img/logo.svg" alt="Tonalhub">
+<img align="center" src="https://alemangui.github.io/Tonalhub/img/logo-blue.svg" alt="Tonalhub">
 
 ## Make your repositories sing
 
