@@ -76,6 +76,7 @@
 			this.stopAllSounds();
 			this.removePlayingVisualCues();
 			this.playButton.classList.remove('stop');
+			this.clearQueryString();
 			if (this.interval)
 				window.clearInterval(this.interval);
 		},
@@ -297,6 +298,11 @@
 				else
 					return url;
 			}
+		},
+
+		clearQueryString: function() {
+			var url = window.location.toString().split('?')[0];
+			window.history.replaceState(null, '', url);
 		}
 	};
 
