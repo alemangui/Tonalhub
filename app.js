@@ -2,8 +2,9 @@
 
 (function() {
 
-	var Tonalhub = function(sounds) {
+	var Tonalhub = function(sounds, backgroundMusic) {
 		this.sounds = sounds;
+		this.backgroundMusic = backgroundMusic;
 	};
 
 	Tonalhub.prototype = {
@@ -25,7 +26,7 @@
 
 		/** 
 		 * This interval will be the one used to play the sounds
-		 * of the week's commits every 400 ms.
+		 * of the week's commits every 250 ms.
 		 */
 		interval: null,
 
@@ -75,6 +76,7 @@
 		stop: function() {
 			this.stopAllSounds();
 			this.removePlayingVisualCues();
+			this.backgroundMusic && this.backgroundMusic.stop();
 			this.playButton.classList.remove('stop');
 			this.clearQueryString();
 			if (this.interval)
@@ -148,6 +150,8 @@
 			var index = 0;
 			var self = this;
 
+			this.backgroundMusic && this.backgroundMusic.play();
+
 			this.interval = window.setInterval(function() {
 
 				self.stopAllSounds();
@@ -162,6 +166,7 @@
 
 				if (index === commitActivity.length) {
 					window.clearInterval(self.interval);
+					self.backgroundMusic && self.backgroundMusic.stop();
 					self.playButton.classList.toggle('stop', false);
 					return;
 				}
@@ -175,15 +180,16 @@
 					soundsForWeek[i].play();
 
 				index++;
-			}, 400);
+			}, 250);
 		},
 
 		/** 
 		 * If there are any sounds playing, they will be stopped.
 		 */
 		stopAllSounds: function() {
+			
 			for (var i = 0; i < this.sounds.length; i++)
-					this.sounds[i].stop();
+				this.sounds[i].stop();
 		},
 
 		/** 
@@ -229,7 +235,7 @@
 
 			window.history.replaceState(null, '', nextUrl);
 
-			var url = 'https://api.github.com/repos/' + user + '/' + repository + '/stats/commit_activity';
+			var url = 'https://tonalhub-alemangui.rhcloud.com/api/' + user + '/' + repository;
 			var httpRequest = new XMLHttpRequest();
 			var self = this;
 
@@ -307,14 +313,20 @@
 	};
 
 	var tonalhub = new Tonalhub([
-		new Pizzicato.Sound({ source: 'wave', options: { frequency: 880.00, sustain: 0.2 } }),
-		new Pizzicato.Sound({ source: 'wave', options: { frequency: 659.25, sustain: 0.2 } }),
-		new Pizzicato.Sound({ source: 'wave', options: { frequency: 523.25, sustain: 0.2 } }),
-		new Pizzicato.Sound({ source: 'wave', options: { frequency: 440.00, sustain: 0.2 } }),
-		new Pizzicato.Sound({ source: 'wave', options: { frequency: 329.63, sustain: 0.2 } }),
-		new Pizzicato.Sound({ source: 'wave', options: { frequency: 220.00, sustain: 0.2 } }),
-		new Pizzicato.Sound({ source: 'wave', options: { frequency: 164.81, sustain: 0.2 } })
-	]);
+		createSynthSound(880.00),
+		createSynthSound(659.25),
+		createSynthSound(523.25),
+		createSynthSound(440.00),
+		createSynthSound(329.63),
+		createSynthSound(220.00),
+		createSynthSound(164.81)
+	],
+		new Pizzicato.Sound({ source: 'file', options: { path: './audio/background.m4a', loop: true, volume: 1.3 }})
+	);
+
+	function createSynthSound(frequency) {
+		return new Pizzicato.Sound({ source: 'wave', options: { frequency: frequency, sustain: 0.2, volume: 0.5 } });
+	}
 
 	tonalhub.initialize();
 })();
