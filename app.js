@@ -312,6 +312,8 @@
 		}
 	};
 
+	var backgroundPath = Dolby.checkDDPlus() ? './audio/background_Dolby.mp4' : './audio/background.m4a';
+
 	var tonalhub = new Tonalhub([
 		createSynthSound(880.00),
 		createSynthSound(659.25),
@@ -321,11 +323,11 @@
 		createSynthSound(220.00),
 		createSynthSound(164.81)
 	],
-		new Pizzicato.Sound({ source: 'file', options: { path: './audio/background.m4a', loop: true, volume: 1.3 }})
+		new Pizzicato.Sound({ source: 'file', options: { path: backgroundPath, loop: true, volume: 1.4 }})
 	);
 
 	function createSynthSound(frequency) {
-		return new Pizzicato.Sound({ source: 'wave', options: { frequency: frequency, sustain: 0.2, volume: 0.5 } });
+		return new Pizzicato.Sound({ source: 'wave', options: { frequency: frequency, sustain: 0.2, volume: 0.4 } });
 	}
 
 	tonalhub.initialize();
