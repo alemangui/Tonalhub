@@ -126,6 +126,11 @@ button#playButton.stop:active {
     background-color: #985A5A;
 }
 
+button#playButton[disabled], button#playButton.stop[disabled] {
+    background-color: #999;
+    border-color: #666;
+}
+
 div#grid {
     width: 780px;
     height: 105px;

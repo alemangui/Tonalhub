@@ -16,7 +16,7 @@
 
 		/**
 		 * Button used to play or stop the repo.
-		 */
+		 */	
 		playButton: document.getElementById('playButton'),
 
 		/**
@@ -35,20 +35,34 @@
 		 */
 		initialize: function() {
 			var self = this;
+			var repositoryInput = document.getElementById('repositoryInput');
+			var userInput = document.getElementById('userInput');
+			var user = this.getParameterByName('user');
+			var repository = this.getParameterByName('repository');
 
-			this.playButton.addEventListener('click', function() {
+			var eventHandler = function() {
 				self.clearErrors();
 				if (self.playButton.classList.contains('stop'))
 					self.stop();
 				else
 					self.play();
+			};
+
+			this.playButton.addEventListener('click', eventHandler);
+
+			repositoryInput.addEventListener('keypress', function(event) {
+    			if (event.keyCode == 13)
+    				eventHandler();
 			});
 
-			var user = this.getParameterByName('user');
-			var repository = this.getParameterByName('repository');
+			userInput.addEventListener('keypress', function(event) {
+    			if (event.keyCode == 13)
+    				eventHandler();
+			});
+
 			if (user && repository) {
-				document.getElementById('userInput').value = user;
-				document.getElementById('repositoryInput').value = repository;
+				userInput.value = user;
+				repositoryInput.value = repository;
 				this.play();
 			}
 		},
@@ -89,6 +103,7 @@
 		 */
 		onCommitActivityFetched: function(commitActivity) {
 			this.playButton.classList.toggle('stop', true);
+			this.toggleWaitingMode(false);
 
 			this.normalize(commitActivity);
 			this.displayCommitActivity(commitActivity);
@@ -96,16 +111,19 @@
 		},
 
 		/** 
-		 * Called if the commit activity fetching fails.
+		 * Called if the commit activity fetching fails. Retries the
+		 * request if we get a 202, which means github is calculating 
+		 * the response.
 		 */
 		onCommitActivityError: function(errorCode) {
 
 			if (errorCode === 202) {
-				window.setTimeout((function() { this.play(); }).bind(this), 400);
+				window.setTimeout((function() { this.play(); }).bind(this), 500);
 				return;
 			}
 
 			this.playButton.classList.toggle('stop', false);
+			this.toggleWaitingMode(false);
 
 			if (errorCode === 404)
 				this.displayError('It seems like the user or repository doesn\'t exist :(');
@@ -228,7 +246,7 @@
 		 * github's API.
 		 */
 		getCommitActivity: function(user, repository, successCallback, errorCallback) {
-			this.playButton.disabled = true;
+			this.toggleWaitingMode(true);
 			var nextUrl = window.location.toString();
 			nextUrl = this.updateQueryString('user', user, nextUrl);
 			nextUrl = this.updateQueryString('repository', repository, nextUrl);
@@ -247,12 +265,18 @@
 					(successCallback.bind(self))(JSON.parse(httpRequest.response));
 				else
 					(errorCallback.bind(self))(httpRequest.status);
-
-				self.playButton.disabled = false;
 			};
 
 			httpRequest.open('GET', url, true);
 			httpRequest.send(null);
+		},
+
+		toggleWaitingMode: function(waiting) {
+			if (waiting) {
+				this.playButton.disabled = true;
+			} else {
+				this.playButton.disabled = false;
+			}
 		},
 
 		displayError: function(error) {
