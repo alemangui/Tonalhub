@@ -132,7 +132,7 @@
 				this.displayError('Woops! There are some issues with GitHub\'s API');
 
 			else if (errorCode === 403)
-				this.displayError('We went over the query limit :( GitHub allows a maximum of 60 requests per hour. Try again later.');
+				this.displayError('We went over the query limit for the Github API :( Please try again later.');
 
 			else
 				this.displayError('Something went wrong with the request :(');
