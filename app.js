@@ -253,7 +253,7 @@
 
 			window.history.replaceState(null, '', nextUrl);
 
-			var url = 'http://alemangui.pythonanywhere.com/api/' + user + '/' + repository;
+			var url = 'https://alemangui.pythonanywhere.com/api/' + user + '/' + repository;
 			var httpRequest = new XMLHttpRequest();
 			var self = this;
 
