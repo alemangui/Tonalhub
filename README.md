@@ -4,7 +4,7 @@
 
 Tonalhub fetches the commit activity for the past year to turn it into music. Each week will play a sound for every day that had a commit in it. 
 
-Take a look at [Tonalhub's website](https://alemangui.github.io/Tonalhub/), or try it out with [Backbone](https://alemangui.github.io/Tonalhub/?user=jashkenas&repository=backbone), [Pizzicato](https://alemangui.github.io/Tonalhub/?user=alemangui&repository=pizzicato), or the [web audio API](https://alemangui.github.io/Tonalhub/?user=webaudio&repository=web-audio-api).
+I've taken Tonalhub temporarily offline, but feel free to launch it yourself !
 
 ### Rate limits
 Tonalhub uses Github's API to fetch the commit activity. If you get a rate exceeded error, please try again in a few minutes.
